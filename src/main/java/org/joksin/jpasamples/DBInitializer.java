@@ -7,6 +7,7 @@ import org.joksin.jpasamples.entity.Phone;
 import org.joksin.jpasamples.entity.Project;
 import org.joksin.jpasamples.repository.PersonRepository;
 import org.joksin.jpasamples.repository.ProjectRepository;
+import org.joksin.jpasamples.repository.spec.PersonFilter;
 import org.joksin.jpasamples.repository.spec.PersonSpecifications;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -106,9 +107,17 @@ public class DBInitializer implements CommandLineRunner {
         for (Person person : persons) {
             System.out.println(mapper.writeValueAsString(person));
         }
+        persons = personRepository.findAll(new PersonFilter("Jovan", "Python"));
+        for (Person person : persons) {
+            System.out.println(mapper.writeValueAsString(person));
+        }
 
         System.out.println("--------------------------------");
         persons = personRepository.findAll(PersonSpecifications.searchByNameAndProgLanguage("Jovan", null));
+        for (Person person : persons) {
+            System.out.println(mapper.writeValueAsString(person));
+        }
+        persons = personRepository.findAll(new PersonFilter("Jovan", null));
         for (Person person : persons) {
             System.out.println(mapper.writeValueAsString(person));
         }
@@ -118,9 +127,17 @@ public class DBInitializer implements CommandLineRunner {
         for (Person person : persons) {
             System.out.println(mapper.writeValueAsString(person));
         }
+        persons = personRepository.findAll(new PersonFilter(null, "Java"));
+        for (Person person : persons) {
+            System.out.println(mapper.writeValueAsString(person));
+        }
 
         System.out.println("--------------------------------");
         persons = personRepository.findAll(PersonSpecifications.searchByNameAndProgLanguage(null, null));
+        for (Person person : persons) {
+            System.out.println(mapper.writeValueAsString(person));
+        }
+        persons = personRepository.findAll(new PersonFilter(null, null));
         for (Person person : persons) {
             System.out.println(mapper.writeValueAsString(person));
         }
